@@ -1,4 +1,4 @@
-require('dotenv').config
+require('dotenv').config()
 
 const PORT = process.env.PORT
 const TEST_DB = process.env.TEST_DB
