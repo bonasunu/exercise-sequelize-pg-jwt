@@ -1,0 +1,13 @@
+{
+  "name": "binar-ch6-bona",
+  "version": "1.0.0",
+  "description": "Chapter 6 Submission",
+  "main": "index.js",
+  "repository": "git@github.com:bonasunu/binar-ch6-bona.git",
+  "author": "bonasunu <bonaventurasunu@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.3.3"
+  }
+}
