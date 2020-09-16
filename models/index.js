@@ -1,37 +1,26 @@
-'use strict';
+const { Sequelize, DataTypes, Model } = require('sequelize')
+const config = require('../utils/config')
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const db = {};
+const sequelize = new Sequelize(config.DB, config.USER, config.PASS, {
+  host: config.HOST,
+  dialect: 'postgres',
+})
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+class Player extends Model {}
+Player.init(
+  {
+    player_name: DataTypes.STRING,
+  },
+  { sequelize, modelName: 'player' }
+)
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+const syncTable = async () => {
+  await sequelize.sync()
+  const harry = await Player.create({
+    player_name: 'harrypotter',
   })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+  console.log(harry.toJSON())
+}
+syncTable()
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-module.exports = db;
+module.exports = Player
