@@ -1,5 +1,4 @@
 const { User } = require('../db/models')
-const passport = require('../lib/passport')
 
 const format = (user) => {
   const { id, username } = user
@@ -18,5 +17,9 @@ module.exports = {
   register: async (req, res) => {
     await User.register(req.body)
     res.redirect('/api/users/login')
+  },
+  whoami: async (req, res) => {
+    const currentUser = req.user
+    res.json(currentUser)
   },
 }

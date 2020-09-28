@@ -1,7 +1,9 @@
 const Router = require('express-promise-router')
 const router = new Router()
-const db = require('../db/models')
 const auth = require('../controllers/authController')
+const restrict = require('../utils/restrict')
+
+router.get('/whoami', restrict, auth.whoami)
 
 router.get('/', async (req, res) => {
   res.json({ info: 'welcome' })
