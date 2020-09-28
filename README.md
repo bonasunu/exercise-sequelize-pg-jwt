@@ -1,2 +1,2 @@
-# binar-ch6-bona
-Challenge Chapter 6 Submission
+# Exercise using sequelize, pg, jwt
+
